@@ -3,6 +3,13 @@ import { getPostData, getSortedPostsData } from "@/lib/posts";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export async function generateStaticParams() {
+	const posts = getSortedPostsData();
+	return posts.map((post) => ({
+		postId: post.id,
+	}));
+}
+
 export async function generateMetadata({ params }: { params: { postId: string } }) {
 	const { postId } = params;
 	const posts = getSortedPostsData();
